@@ -15,7 +15,7 @@ internal static class Language {
 
   public static string LearnTMs => GameInfo.CurrentLanguage switch {
     "zh-Hans" => "学习 TM",
-    "en" or _ => "Learn TMs"
+    "en" or _ => "Learn All TMs"
   };
 
 }

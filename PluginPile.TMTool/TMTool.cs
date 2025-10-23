@@ -7,7 +7,7 @@ public class TMTool : PluginBase {
   private BoxManipulator Manipulator = null!;
   private readonly BoxManipType CustomManipType = (BoxManipType)42;
   private readonly ToolStripMenuItem MenuItem;
-  private bool IsCompatibleSave => SaveFileEditor.SAV is SAV9SV;
+  private bool IsCompatibleSave => SaveFileEditor.SAV is SAV9SV or SAV8SWSH;
 
   public TMTool() {
     MenuItem = new ToolStripMenuItem(Language.MenuItemName);
@@ -44,16 +44,17 @@ public class TMTool : PluginBase {
       if (IsCompatibleSave && info.IsNonEmptyWriteableBoxSlot()) {
         ToolStripMenuItem tmToolItem = new ToolStripMenuItem(Language.MenuItemName);
 
-        void ApplyChange(Action<PK9> change) {
+        void ApplyChange(Action<PKM> change) {
           int slotIndex = SaveFileEditor.CurrentBox * SaveFileEditor.SAV.BoxSlotCount + info.Slot.Slot;
-          PK9 mon = (PK9)SaveFileEditor.SAV.GetBoxSlotAtIndex(slotIndex);
+          PKM mon = SaveFileEditor.SAV.GetBoxSlotAtIndex(slotIndex);
           change(mon);
           SaveFileEditor.SAV.SetBoxSlotAtIndex(mon, slotIndex, EntityImportSettings.None);
         }
-
-        ToolStripMenuItem addProtect = new ToolStripMenuItem(Language.AddProtect);
-        addProtect.Click += (s, e) => ApplyChange(mon => mon.SetMoveRecordFlag(Constants.TM_PROTECT, true));
-        tmToolItem.DropDownItems.Add(addProtect);
+        if (SaveFileEditor.SAV is SAV9SV) {
+          ToolStripMenuItem addProtect = new ToolStripMenuItem(Language.AddProtect);
+          addProtect.Click += (s, e) => ApplyChange(mon => (mon as ITechRecord)?.SetMoveRecordFlag(Constants.TM_PROTECT, true));
+          tmToolItem.DropDownItems.Add(addProtect);
+        }
 
         ToolStripMenuItem learnTMsItem = new ToolStripMenuItem(Language.LearnTMs);
         learnTMsItem.Click += (s, e) => ApplyChange(mon => LearnTMsFromCurrentMoves(mon));
@@ -66,10 +67,10 @@ public class TMTool : PluginBase {
   }
 
   // Copied from PKHeX.WinForms.PKMEditor
-  private void LearnTMsFromCurrentMoves(PK9 pk9) {
+  private void LearnTMsFromCurrentMoves(PKM pk) {
     Span<ushort> moves = stackalloc ushort[4];
-    pk9.GetMoves(moves);
-    LegalityAnalysis la = new LegalityAnalysis(pk9);
-    pk9.SetRecordFlags(moves, la.Info.EvoChainsAllGens.Get(pk9.Context));
+    pk.GetMoves(moves);
+    LegalityAnalysis la = new LegalityAnalysis(pk);
+    (pk as ITechRecord)?.SetRecordFlags(pk, TechnicalRecordApplicatorOption.LegalAll);
   }
 }
