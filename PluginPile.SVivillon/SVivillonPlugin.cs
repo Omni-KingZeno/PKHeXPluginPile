@@ -6,7 +6,7 @@ public class SVivillonPlugin : PluginBase {
 
   public override string Name => nameof(SVivillonPlugin);
   private readonly ToolStripMenuItem OpenFormButton;
-  private bool IsCompatibleSave => SaveFileEditor.SAV is SAV9SV;
+  private bool IsCompatibleSave => SaveFileEditor.SAV is SAV9SV && SaveFileEditor.SAV.State.Exportable;
 
   public SVivillonPlugin() {
     OpenFormButton = new ToolStripMenuItem(Language.MenuItemName) {
