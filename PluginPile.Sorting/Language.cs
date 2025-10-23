@@ -305,17 +305,24 @@ internal static class Language {
   };
 
   public static string NationalPokédexRegionalForms => GameInfo.CurrentLanguage switch {
-    "de"      => "Nationaldex (Regionale Formen mit Generation)",
-    "zh-Hans" => "全国图鉴(地区形态出生世代)",
-    "it"      => "Dex Nazionale (Forme Regionali nella Generazione originale)",
-    "en" or _ => "National Pokédex (Regional Forms With Generation)"
+    "de"      => "Regionale Formen mit Generation",
+    "zh-Hans" => "地区形态出生世代",
+    "it"      => "Forme Regionali nella Generazione originale",
+    "en" or _ => "Regional Forms With Generation"
   };
 
-  public static string RegionalPokédexTemplate => GameInfo.CurrentLanguage switch {
-    "de"      => "{0} Regionaldex",
-    "zh-Hans" => "{0} 地区图鉴",
-    "it"      => "{0} Dex Regionale",
-    "en" or _ => "{0} Regional Pokédex"
+  public static string RegionalPokédex => GameInfo.CurrentLanguage switch {
+    "de"      => "Regionaldex",
+    "zh-Hans" => "地区图鉴",
+    "it"      => "Dex Regionale",
+    "en" or _ => "Regional Pokédex"
+  };
+
+  public static string NormalOrder => GameInfo.CurrentLanguage switch {
+    "de"      => "Normale Reihenfolge",
+    "zh-Hans" => "正常顺序",
+    "it"      => "Ordine normale",
+    "en" or _ => "Normal Order"
   };
 
   public static string Settings => GameInfo.CurrentLanguage switch {
