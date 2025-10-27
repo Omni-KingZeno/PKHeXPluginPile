@@ -290,6 +290,13 @@ internal static class Language {
     "en" or _ => "Blueberry Academy"
   };
 
+  public static string Gen9Kalos => GameInfo.CurrentLanguage switch {
+    "de" => "Gen 9 Kalos",
+    "zh-Hans" => "Gen 9 卡洛斯",
+    "it" => "Gen 9 Kalos",
+    "en" or _ => "Gen 9 Kalos"
+  };
+
   public static string MenuItemName => GameInfo.CurrentLanguage switch {
     "de"      => "Sortiere Boxen nach",
     "zh-Hans" => "排序插件",

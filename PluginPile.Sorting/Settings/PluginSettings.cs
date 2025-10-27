@@ -3,14 +3,14 @@ using System.Configuration;
 
 namespace PluginPile.Sorting;
 
-public sealed partial class PluginSettings : ApplicationSettingsBase {
+public sealed partial class PluginSettings : ApplicationSettingsBase
+{
 
   private static readonly PluginSettings defaultInstance = ((PluginSettings)(Synchronized(new PluginSettings())));
 
-  public static PluginSettings Default {
-    get {
-      return defaultInstance;
-    }
+  public static PluginSettings Default
+  {
+    get => defaultInstance;
   }
 
   /// <summary>
@@ -19,13 +19,10 @@ public sealed partial class PluginSettings : ApplicationSettingsBase {
   [UserScopedSetting()]
   [Description("Show the individual area Pokédexes for those that have it.")]
   [DefaultSettingValue("False")]
-  public bool ShowIndividualPokédexes {
-    get {
-      return (bool)this[nameof(ShowIndividualPokédexes)];
-    }
-    set {
-      this[nameof(ShowIndividualPokédexes)] = value;
-    }
+  public bool ShowIndividualPokédexes
+  {
+    get => (bool)this[nameof(ShowIndividualPokédexes)];
+    set => this[nameof(ShowIndividualPokédexes)] = value;
   }
 
   /// <summary>
@@ -34,13 +31,10 @@ public sealed partial class PluginSettings : ApplicationSettingsBase {
   [UserScopedSetting()]
   [Description("The box to begin sorting from.")]
   [DefaultSettingValue("1")]
-  public int SortBeginBox {
-    get {
-      return (int)this[nameof(SortBeginBox)];
-    }
-    set {
-      this[nameof(SortBeginBox)] = value;
-    }
+  public int SortBeginBox
+  {
+    get => (int)this[nameof(SortBeginBox)];
+    set => this[nameof(SortBeginBox)] = value;
   }
 
   /// <summary>
@@ -49,13 +43,10 @@ public sealed partial class PluginSettings : ApplicationSettingsBase {
   [UserScopedSetting()]
   [Description("The box to ending sorting in. -1 can be used to specify the last box.")]
   [DefaultSettingValue("-1")]
-  public int SortEndBox {
-    get {
-      return (int)this[nameof(SortEndBox)];
-    }
-    set {
-      this[nameof(SortEndBox)] = value;
-    }
+  public int SortEndBox
+  {
+    get => (int)this[nameof(SortEndBox)];
+    set => this[nameof(SortEndBox)] = value;
   }
 
   /// <summary>
@@ -64,17 +55,15 @@ public sealed partial class PluginSettings : ApplicationSettingsBase {
   [UserScopedSetting()]
   [Description("Only accept forms from the regional Pokédex that are being sorted")]
   [DefaultSettingValue("True")]
-  public bool CheckForms {
-    get {
-      return (bool)this[nameof(CheckForms)];
-    }
-    set {
-      this[nameof(CheckForms)] = value;
-    }
+  public bool CheckForms
+  {
+    get => (bool)this[nameof(CheckForms)];
+    set => this[nameof(CheckForms)] = value;
   }
 
   [Serializable()]
-  public enum SortOptions {
+  public enum SortOptions
+  {
     LevelAsc,
     LevelDesc,
     MetDateAsc,
@@ -90,13 +79,9 @@ public sealed partial class PluginSettings : ApplicationSettingsBase {
   /// </summary>
   [UserScopedSetting()]
   [Description("Additional sorting options to be applied after Pokédex sorting")]
-  public SortOptions[] AdditionalSortOptions {
-    get {
-      return (SortOptions[])this[nameof(AdditionalSortOptions)];
-    }
-    set {
-      this[nameof(AdditionalSortOptions)] = value;
-    }
+  public SortOptions[] AdditionalSortOptions
+  {
+    get => (SortOptions[])this[nameof(AdditionalSortOptions)];
+    set => this[nameof(AdditionalSortOptions)] = value;
   }
-
 }

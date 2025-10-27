@@ -37,6 +37,7 @@ public class SortingPlugin : PluginBase {
     } else {
       bool isBDSP = version == GameVersion.BD || version == GameVersion.SP;
       bool isPLA  = version == GameVersion.PLA;
+      bool isPLZA = version == GameVersion.ZA;
       // Regional 
       if (gen >= 1) {
         regionalMenu.DropDownItems.Add(GetRegionalSortButton(Language.Gen1Kanto, Gen1Kanto.GetSortFunctions()));
@@ -128,7 +129,7 @@ public class SortingPlugin : PluginBase {
         }
       }
 
-      if (gen >= 9) {
+      if (gen >= 9 && !isPLZA) {
         if (PluginSettings.Default.ShowIndividualPokédexes) {
           regionalMenu.DropDownItems.Add(GetAreaButtons(Language.Gen9PaldeaRegions, [
               GetRegionalSortButton(Language.Gen9PaldeaRegionsPaldea, Gen9Paldea.GetPaldeaSortFunctions()),
@@ -137,6 +138,15 @@ public class SortingPlugin : PluginBase {
           ]));
         }
         regionalMenu.DropDownItems.Add(GetRegionalSortButton(Language.Gen9Paldea, Gen9Paldea.GetSortFunctions()));
+      }
+
+      if (gen >= 9 && isPLZA) {
+        if (PluginSettings.Default.ShowIndividualPokédexes) {
+          regionalMenu.DropDownItems.Add(GetAreaButtons(Language.Gen9Kalos, [
+              GetRegionalSortButton(Language.Gen9Kalos, Gen9Kalos.GetSortFunctions()),
+          ]));
+        }
+        regionalMenu.DropDownItems.Add(GetRegionalSortButton(Language.Gen9Kalos, Gen9Kalos.GetSortFunctions()));
       }
 
       // National
